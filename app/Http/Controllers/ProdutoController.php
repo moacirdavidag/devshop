@@ -15,14 +15,47 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function criarProduto()
+    public function detalhesProduto($id)
     {
-        return view('admin.produtos.criar-produto');
+        if (!$produto = Produto::find($id)) {
+            return response('Produto não encontrado', 404);
+        }
+        return view('produtos.detalhes-produto', [
+            'produto' => $produto
+        ]);
     }
 
-    public function store(StoreUpdateProduto $request)
+    public function viewCriarProduto() {
+        return view('admin.criar-produto');
+    }
+
+    public function criarProduto(StoreUpdateProduto $request)
     {
         Produto::create($request->all());
-        return redirect()->route('produtos.index');
+        return redirect('produtos.index');
     }
+
+    public function viewEditarProduto($id) {
+        $produto = Produto::find($id);
+        if(!$produto) {
+            return response('Produto não encontrado', 404);
+        }
+        return view('produtos.editar-produto', [
+            'produto' => $produto
+        ]);
+    }
+    public function editar(StoreUpdateProduto $update, $id) {
+        if(!$produto = Produto::find($id)) {
+            return response('Produto não encontrado', 404);
+        }
+        $produto->update($update->all());
+    }
+
+    public function deletar($id) {
+        if(!$produto = Produto::find($id)) {
+            return response('Produto não encontrado', 404);
+        }
+        $produto->delete($id);
+    }
+
 }

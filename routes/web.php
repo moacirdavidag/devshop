@@ -19,5 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
-Route::get('/produtos/criar', [ProdutoController::class, 'criarProduto'])->name('produtos.criar');
-Route::post('/produtos', [ProdutoController::class, 'store'])->name('produtos.store');
+Route::get('/produto/{id}', [ProdutoController::class, 'detalhesProduto'])->name('produtos.detalhes');
+Route::get('/produto/criar', [ProdutoController::class, 'viewCriarProduto]'])->name('produtos.criarProduto');
+Route::get('/produto/editar/{id}', [ProdutoController::class, 'viewEditarProduto'])->name('produtos.editarProduto');
+Route::post('/produtos', [ProdutoController::class, 'criarProduto'])->name('produtos.criar');
+Route::put('/produto/editar/{id}', [ProdutoController::class, 'editar'])->name('produtos.editar');
+Route::delete('/produto/{id}', [ProdutoController::class, 'deletar'])->name('produtos.deletar');
