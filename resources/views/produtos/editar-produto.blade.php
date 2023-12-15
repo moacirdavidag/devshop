@@ -14,6 +14,22 @@
             <input type="text" name="descricao" id="descricao" value="{{$produto->descricao}}">
         </div>
         <div>
+            <label for="categoria_id">Categoria:</label>
+            <select name="categoria_id" id="categoria_id">
+                @foreach($categorias as $categoria)
+                    <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <label for="quantidadeEstoque">Quantidade em estoque:</label>
+            <input type="number" name="quantidadeEstoque" id="quantidadeEstoque" value="0">
+        </div>
+        <div>
+            <label for="preco">Preço (R$):</label>
+            <input type="number" name="preco" id="preco" value="0">
+        </div>
+        <div>
             <input type="submit" value="Editar produto">
         </div>
     </form>
