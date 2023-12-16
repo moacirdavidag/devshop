@@ -53,7 +53,7 @@ class ProdutoController extends Controller
         if (!$produto) {
             return response('Produto não encontrado', 404);
         }
-        return view('produtos.editar-produto', [
+        return view('admin.produtos.editar-produto', [
             'produto' => $produto,
             'categorias' => $categorias
         ]);
