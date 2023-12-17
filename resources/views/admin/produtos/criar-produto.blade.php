@@ -7,12 +7,13 @@
         @csrf
         <div class="mb-3">
             <label class="form-label" for="nome">Nome do produto:</label>
-            <input class="form-control" type="text" name="nome" id="nome">
+            <input class="form-control" type="text" name="nome" size="50" id="nome">
         </div>
         <div class="mb-3">
             <label class="form-label" for="descricao">Descrição do produto:</label>
-            <input class="form-control" type="text" name="descricao" id="descricao">
-        </div class="mb-3">
+            <textarea class="form-control" name="descricao" id="descricao">
+            </textarea>
+        </div>
         <div class="mb-3">
             <label class="form-label" for="imagem">Imagem:</label>
             <input class="form-control" type="file" name="imagem" id="imagem">

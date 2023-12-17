@@ -24,70 +24,32 @@
         <div class="w-100 mx-auto mt-3">
             <h2 class="text-start">Camisetas</h2>
             <div class="container bg-light p-4 mt-3 d-flex justify-content-evenly">
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+                @foreach ($camisetas as $camiseta)
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{asset('/storage/produtos/'.$camiseta->imagem)}}" class="card-img-top" alt="{{$camiseta->nome}}">
+                        <div class="card-body">
+                            <p class="card-text">{{$camiseta->nome}}</p>
+                            <a href="{{route('produtos.detalhes', ['id' => $camiseta->id])}}"><button class="btn btn-outline-secondary">Detalhes</button></a>
+                        </div>
                     </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <p class="text-end"><a href="/">Ir para a categoria de camisetas</a></p>
         </div>
         <div class="w-100 mx-auto mt-3">
-          <h2 class="text-start">Acessórios</h2>
-          <div class="container bg-light p-4 mt-3 d-flex justify-content-evenly">
-              <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                          card's content.</p>
-                  </div>
-              </div>
-              <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                          card's content.</p>
-                  </div>
-              </div>
-              <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                          card's content.</p>
-                  </div>
-              </div>
-              <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                          card's content.</p>
-                  </div>
-              </div>
-          </div>
-          <p class="text-end"><a href="/">Ir para a categoria de acessórios</a></p>
-      </div>
+            <h2 class="text-start">Acessórios</h2>
+            <div class="container bg-light p-4 mt-3 d-flex justify-content-evenly">
+                @foreach ($acessorios as $acessorio)
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{asset('/storage/produtos/'.$acessorio->imagem)}}" class="card-img-top" alt="{{$acessorio->nome}}">
+                        <div class="card-body">
+                            <p class="card-text">{{$acessorio->nome}}</p>
+                            <a href="{{route('produtos.detalhes', ['id' => $acessorio->id])}}"><button class="btn btn-outline-secondary">Detalhes</button></a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <p class="text-end"><a href="/">Ir para a categoria de acessórios</a></p>
+        </div>
     </div>
 @endsection

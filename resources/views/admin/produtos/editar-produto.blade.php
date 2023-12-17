@@ -8,12 +8,14 @@
         <input type="hidden" name="_method" value="put">
         <div class="mb-3">
             <label class="form-label" for="nome">Nome do produto:</label>
-            <input class="form-control" type="text" name="nome" id="nome" value={{$produto->nome}}>
+            <input class="form-control" type="text" name="nome" id="nome" size="50" value={{$produto->nome}}>
         </div>
         <div class="mb-3">
             <label class="form-label" for="descricao">Descrição do produto:</label>
-            <input class="form-control" type="text" name="descricao" id="nome" value={{$produto->descricao}}>
-        </div class="mb-3">
+            <textarea class="form-control" name="descricao" id="descricao">
+                {{$produto->descricao}}
+            </textarea>
+        </div>
         <div class="mb-3">
             <label class="form-label" for="imagem">Imagem:</label>
             <input class="form-control" type="file" name="imagem" id="imagem">

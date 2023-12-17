@@ -85,6 +85,7 @@ class ProdutoController extends Controller
             $imagemProduto->storeAs("/public/produtos", $hashImagem);
             $produto['imagem'] = $hashImagem;
         }
+        $produto['categoria_id'] = $update->categoria_id;
         $produto->save();
         return redirect()->route('produtos.index')->with('Produto editado com sucesso');
     }

@@ -24,7 +24,8 @@ class StoreUpdateProduto extends FormRequest
         return [
             'nome' => 'required|min:10|max:100',
             'descricao' => 'required|max:2000',
-            'imagem' => 'required'
+            'imagem' => 'required',
+            'categoria_id' => 'required'
         ];
     }
 }
