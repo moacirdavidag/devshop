@@ -42,7 +42,19 @@ class ProdutoController extends Controller
 
     public function criarProduto(StoreUpdateProduto $request)
     {
-        Produto::create($request->all());
+        $produto = $request->all();
+        if($request->hasFile('imagem') && $request->imagem->isValid()) {
+            $imagemProduto = $request->file('imagem');
+
+            $extensaoImagem = $imagemProduto->extension();
+
+            $hashImagem = md5($imagemProduto->getClientOriginalName() . strtotime("now")) . "." . $extensaoImagem;
+        
+            $imagemProduto->storeAs("/public/produtos", $hashImagem);
+            $produto['imagem'] = $hashImagem;
+        }
+        Produto::create($produto);
+
         return redirect()->route('produtos.index')->with('Produto criado com sucesso');
     }
 
@@ -63,7 +75,17 @@ class ProdutoController extends Controller
         if (!$produto = Produto::find($id)) {
             return response('Produto não encontrado', 404);
         }
-        $produto->update($update->all());
+        if($update->hasFile('imagem') && $update->imagem->isValid()) {
+            $imagemProduto = $update->file('imagem');
+
+            $extensaoImagem = $imagemProduto->extension();
+
+            $hashImagem = md5($imagemProduto->getClientOriginalName() . strtotime("now")) . "." . $extensaoImagem;
+        
+            $imagemProduto->storeAs("/public/produtos", $hashImagem);
+            $produto['imagem'] = $hashImagem;
+        }
+        $produto->save();
         return redirect()->route('produtos.index')->with('Produto editado com sucesso');
     }
 

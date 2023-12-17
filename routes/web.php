@@ -34,3 +34,7 @@ Route::get('/categorias', [CategoriaController::class, 'index'])->name('categori
 Route::get('/categorias/criar', [CategoriaController::class, 'viewCriarCategoria'])->name('categorias.criarCategoria');
 Route::post('/categorias', [CategoriaController::class, 'criar'])->name('categorias.criar');
 Route::delete('/categorias/${id}', [CategoriaController::class, 'deletar'])->name('categorias.deletar');
+
+Route::get('/teste', function() {
+    return storage_path();
+});

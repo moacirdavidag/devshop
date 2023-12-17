@@ -2,7 +2,7 @@
 @section('titulo', 'Editar ' . $produto->nome)
 
 @section('conteudo')
-    <form action="{{ route('produtos.editar', $produto->id) }}" class="mx-auto mt-5 w-25 text-start" method="post">
+    <form action="{{ route('produtos.editar', $produto->id) }}" class="mx-auto mt-5 w-25 text-start" method="post" enctype="multipart/form-data">
         <h1>Editar produto</h1>
         @csrf
         <input type="hidden" name="_method" value="put">
@@ -13,6 +13,10 @@
         <div class="mb-3">
             <label class="form-label" for="descricao">Descrição do produto:</label>
             <input class="form-control" type="text" name="descricao" id="nome" value={{$produto->descricao}}>
+        </div class="mb-3">
+        <div class="mb-3">
+            <label class="form-label" for="imagem">Imagem:</label>
+            <input class="form-control" type="file" name="imagem" id="imagem">
         </div class="mb-3">
         <div class="mb-3">
             <label class="form-label" for="categoria_id">Categoria:</label>

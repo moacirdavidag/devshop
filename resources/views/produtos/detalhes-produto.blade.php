@@ -4,7 +4,7 @@
 @section('conteudo')
     <div class="container d-flex mx-auto my-5">
         <div class="w-50">
-
+            <img class="mx-auto w-75" src="{{asset('/storage/produtos/'.$produto->imagem)}}" alt="{{$produto->nome}}" />
         </div>
         <div class="w-50 text-start">
             <div class="my-3 d-flex justify-content-between fs-3 fw-bold">

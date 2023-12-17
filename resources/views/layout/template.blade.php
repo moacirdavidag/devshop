@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Open+Sans&family=Outfit:wght@100;200;300;400;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -36,10 +37,10 @@
                                 </li>
                             </ul>
                         </div>
-                        <form class="d-flex" role="search">
+                        <form class="d-flex" role="search" id="form_busca_produto">
                             <input class="form-control me-2" type="search" placeholder="Buscar produto"
                                 aria-label="Search">
-                            <button class="btn btn-primary" type="submit">Buscar</button>
+                                <i class="fa-solid fa-magnifying-glass"></i>
                         </form>
                     </div>
                 </nav>
