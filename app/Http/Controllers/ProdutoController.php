@@ -6,12 +6,13 @@ use App\Http\Requests\StoreUpdateProduto;
 use App\Models\Categoria;
 use App\Models\Produto;
 use DB;
+use \Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
     public function index()
     {
-        $produtos = Produto::all();
+        $produtos = Produto::paginate(3);
         return view('produtos.index', [
             'produtos' => $produtos
         ]);
@@ -24,8 +25,8 @@ class ProdutoController extends Controller
             return response('Produto não encontrado', 404);
         }
         $categoria = DB::table('produtos')
-        ->join('categorias', 'produtos.categoria_id', '=', 'categorias.id')
-        ->get();
+            ->join('categorias', 'produtos.categoria_id', '=', 'categorias.id')
+            ->get();
         return view('produtos.detalhes-produto', [
             'produto' => $produto,
             'categoria' => $categoria
@@ -43,13 +44,13 @@ class ProdutoController extends Controller
     public function criarProduto(StoreUpdateProduto $request)
     {
         $produto = $request->all();
-        if($request->hasFile('imagem') && $request->imagem->isValid()) {
+        if ($request->hasFile('imagem') && $request->imagem->isValid()) {
             $imagemProduto = $request->file('imagem');
 
             $extensaoImagem = $imagemProduto->extension();
 
             $hashImagem = md5($imagemProduto->getClientOriginalName() . strtotime("now")) . "." . $extensaoImagem;
-        
+
             $imagemProduto->storeAs("/public/produtos", $hashImagem);
             $produto['imagem'] = $hashImagem;
         }
@@ -75,13 +76,13 @@ class ProdutoController extends Controller
         if (!$produto = Produto::find($id)) {
             return response('Produto não encontrado', 404);
         }
-        if($update->hasFile('imagem') && $update->imagem->isValid()) {
+        if ($update->hasFile('imagem') && $update->imagem->isValid()) {
             $imagemProduto = $update->file('imagem');
 
             $extensaoImagem = $imagemProduto->extension();
 
             $hashImagem = md5($imagemProduto->getClientOriginalName() . strtotime("now")) . "." . $extensaoImagem;
-        
+
             $imagemProduto->storeAs("/public/produtos", $hashImagem);
             $produto['imagem'] = $hashImagem;
         }
@@ -97,6 +98,16 @@ class ProdutoController extends Controller
         }
         $produto->delete($id);
         return redirect()->route('produtos.index')->with('Produto deletado com sucesso');
+    }
+
+    public function pesquisarProduto(Request $request)
+    {
+        $resultados = Produto::where("nome", "LIKE", "%{$request->busca}%")
+        ->orWhere("descricao", "LIKE", "%{$request->busca}%")
+        ->paginate(3);
+        return redirect()->   view('produtos.pesquisa-resultados', [
+            'resultados' => $resultados
+        ]);
     }
 
 }

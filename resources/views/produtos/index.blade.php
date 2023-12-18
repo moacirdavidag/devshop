@@ -9,10 +9,12 @@
                 @foreach ($produtos as $produto)
                     <div class="mt-3">
                         <div class="card" style="width: 18rem;">
-                            <img src="{{asset('/storage/produtos/'.$produto->imagem)}}" class="card-img-top" alt="{{ $produto->nome }}">
+                            <img src="{{ asset('/storage/produtos/' . $produto->imagem) }}" class="card-img-top"
+                                alt="{{ $produto->nome }}">
                             <div class="card-body h-25">
                                 <p class="card-text fs-5 fw-medium">{{ $produto->nome }}</p>
-                                <a href="{{route('produtos.detalhes', ['id' => $produto->id])}}"><button class="btn btn-outline-secondary">Detalhes</button></a>
+                                <a href="{{ route('produtos.detalhes', ['id' => $produto->id]) }}"><button
+                                        class="btn btn-outline-secondary">Detalhes</button></a>
                             </div>
                         </div>
                     </div>
@@ -21,6 +23,7 @@
                 <p>Nenhum produto registrado</p>
             @endif
         </div>
+        {{ $produtos->links() }}
         <a href="/produtos/criar">Adicionar produto</a>
     </div>
 @endsection

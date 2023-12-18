@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DevShopController;
 use App\Http\Controllers\ProdutoController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.ind
 Route::get('/produto/{id}', [ProdutoController::class, 'detalhesProduto'])->name('produtos.detalhes');
 Route::get('/produtos/criar', [ProdutoController::class, 'viewCriarProduto'])->name('produtos.criarProduto');
 Route::get('/produto/editar/{id}', [ProdutoController::class, 'viewEditarProduto'])->name('produtos.editarProduto');
+Route::post('/buscar', [ProdutoController::class, 'pesquisarProduto'])->name('produtos.pesquisar');
 Route::post('/produtos', [ProdutoController::class, 'criarProduto'])->name('produtos.criar');
 Route::put('/produto/editar/{id}', [ProdutoController::class, 'editar'])->name('produtos.editar');
 Route::delete('/produto/{id}', [ProdutoController::class, 'deletar'])->name('produtos.deletar');
@@ -37,3 +39,15 @@ Route::delete('/categorias/${id}', [CategoriaController::class, 'deletar'])->nam
 Route::get('/teste', function() {
     return storage_path();
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

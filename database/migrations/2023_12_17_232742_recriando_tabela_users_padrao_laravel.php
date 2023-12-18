@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::table("produtos", function (Blueprint $table) {
-        //     $table->string("imagem");
-        // });
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('isAdmin')->default(false);  
+        });
     }
 
     /**
@@ -21,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('usuarios');
     }
 };
