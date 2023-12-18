@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateCategoria;
 use App\Models\Categoria;
+use App\Models\Produto;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -47,6 +49,15 @@ class CategoriaController extends Controller
         } else {
             return redirect('/categorias')->with('Permissão negada');
         }
+    }
+
+    public function categoriasProduto($id) {
+        $categoria = Categoria::find($id);
+        $produtos = Produto::where("categoria_id", "=", $id)->paginate(3);
+        return view('categorias.categorias-produtos', [
+            'categoria' => $categoria,
+            'produtos' => $produtos
+        ]);
     }
 
 }

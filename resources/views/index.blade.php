@@ -34,7 +34,7 @@
                     </div>
                 @endforeach
             </div>
-            <p class="text-end"><a href="/">Ir para a categoria de camisetas</a></p>
+            <p class="text-end"><a href="/categorias/1">Ir para a categoria de camisetas</a></p>
         </div>
         <div class="w-100 mx-auto mt-3">
             <h2 class="text-start">Acessórios</h2>
@@ -49,7 +49,7 @@
                     </div>
                 @endforeach
             </div>
-            <p class="text-end"><a href="/">Ir para a categoria de acessórios</a></p>
+            <p class="text-end"><a href="/categorias/2">Ir para a categoria de acessórios</a></p>
         </div>
     </div>
 @endsection

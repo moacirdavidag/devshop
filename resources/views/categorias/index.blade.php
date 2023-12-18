@@ -5,18 +5,24 @@
     @if (count($categorias) > 0)
         <div class="container mx-auto d-flex flex-wrap justify-content-between">
             @foreach ($categorias as $categoria)
-                <form action="{{ route('categorias.deletar', $categoria->id) }}" method="post">
-                    @csrf
-                    <div class="mt-3">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body h-25">
-                                <p class="card-text fs-4 fw-medium">{{ $categoria->nome }}</p>
-                                <a href="{{ route('produtos.detalhes', ['id' => $categoria->id]) }}"><button
-                                        class="btn btn-outline-secondary">Visitar</button></a>
-                            </div>
+                <div class="mt-3">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body h-25">
+                            <p class="card-text fs-4 fw-medium">{{ $categoria->nome }}</p>
+                            <a href="{{ route('categorias.produtos', ['id' => $categoria->id]) }}"><button
+                                    class="btn btn-outline-secondary">Visitar</button></a>
                         </div>
+                        @auth
+                            @if (Auth::user()->isAdmin)
+                                <form action="{{ route('categorias.deletar', $categoria->id) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <button class="btn" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            @endif
+                        @endauth
                     </div>
-                </form>
+                </div>
             @endforeach
         </div>
     @else

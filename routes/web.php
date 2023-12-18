@@ -33,6 +33,7 @@ Route::delete('/produto/{id}', [ProdutoController::class, 'deletar'])->name('pro
 // Categorias
 
 Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
+Route::get('/categorias/{id}', [CategoriaController::class, 'categoriasProduto'])->name('categorias.produtos');
 Route::get('/categorias/criar', [CategoriaController::class, 'viewCriarCategoria'])->name('categorias.criarCategoria');
 Route::post('/categorias', [CategoriaController::class, 'criar'])->name('categorias.criar');
 Route::delete('/categorias/${id}', [CategoriaController::class, 'deletar'])->name('categorias.deletar');
