@@ -37,9 +37,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <form action="{{ route('produtos.pesquisar') }}" method="post" class="d-flex" role="search"
+                        <form action="{{ route('produtos.pesquisar') }}" method="get" class="d-flex" role="search"
                             id="form_busca_produto">
-                            @csrf
                             <input class="form-control me-2" type="search" placeholder="Buscar produto" aria-label="Search"
                                 id="busca" name="busca">
                             <i class="fa-solid fa-magnifying-glass"></i>

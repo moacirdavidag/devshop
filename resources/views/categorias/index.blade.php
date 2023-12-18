@@ -2,7 +2,6 @@
 @section('titulo', 'Categorias')
 
 @section('conteudo')
-    <a href="/categorias/criar">Adicionar categoria</a>
     @if (count($categorias) > 0)
         <div class="container mx-auto d-flex flex-wrap justify-content-between">
             @foreach ($categorias as $categoria)
@@ -23,4 +22,9 @@
     @else
         <p>Nenhuma categoria registrada</p>
     @endif
+    @auth
+        @if (Auth::user()->isAdmin)
+            <a class="btn btn-primary my-3" href="/categorias/criar">Adicionar categoria</a>
+        @endif
+    @endauth
 @endsection

@@ -24,6 +24,7 @@ Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.ind
 Route::get('/produto/{id}', [ProdutoController::class, 'detalhesProduto'])->name('produtos.detalhes');
 Route::get('/produtos/criar', [ProdutoController::class, 'viewCriarProduto'])->name('produtos.criarProduto')->middleware('auth');
 Route::get('/produto/editar/{id}', [ProdutoController::class, 'viewEditarProduto'])->name('produtos.editarProduto')->middleware('auth');
+Route::get('/buscar', [ProdutoController::class, 'pesquisarProduto'])->name('produtos.pesquisar');
 Route::post('/buscar', [ProdutoController::class, 'pesquisarProduto'])->name('produtos.pesquisar');
 Route::post('/produtos', [ProdutoController::class, 'criarProduto'])->name('produtos.criar')->middleware('auth');
 Route::put('/produto/editar/{id}', [ProdutoController::class, 'editar'])->name('produtos.editar')->middleware('auth');

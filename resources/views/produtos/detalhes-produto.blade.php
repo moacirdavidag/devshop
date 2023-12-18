@@ -4,23 +4,27 @@
 @section('conteudo')
     <div class="container d-flex mx-auto my-5">
         <div class="w-50">
-            <img class="mx-auto w-75" src="{{asset('/storage/produtos/'.$produto->imagem)}}" alt="{{$produto->nome}}" />
+            <img class="mx-auto w-75" src="{{ asset('/storage/produtos/' . $produto->imagem) }}" alt="{{ $produto->nome }}" />
         </div>
         <div class="w-50 text-start">
             <div class="my-3 d-flex justify-content-between fs-3 fw-bold">
                 <div id="tituloProduto">
                     {{ $produto->nome }}
                 </div>
-                <div id="acoesProduto" class="d-flex">
-                    <div id="editarProdutoDiv">
-                        <a href="/produto/editar/{{ $produto->id }}"> <i class="fa-solid fa-pen-to-square"></i> </a>
-                    </div>
-                    <form action="{{ route('produtos.deletar', $produto->id) }}" method="POST">
-                        @csrf
-                        <button class="btn fs-3" type="submit"><i class="fa-solid fa-trash"></i></button>
-                        <input type="hidden" name="_method" value="DELETE">
-                    </form>
-                </div>
+                @auth()
+                    @if (Auth::user()->isAdmin)
+                        <div id="acoesProduto" class="d-flex">
+                            <div id="editarProdutoDiv">
+                                <a href="/produto/editar/{{ $produto->id }}"> <i class="fa-solid fa-pen-to-square"></i> </a>
+                            </div>
+                            <form action="{{ route('produtos.deletar', $produto->id) }}" method="POST">
+                                @csrf
+                                <button class="btn fs-3" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>
+                        </div>
+                    @endif
+                @endauth
             </div>
             <div class="my-5">
                 <p class="fs-5">

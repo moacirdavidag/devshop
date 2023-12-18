@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\Produto;
 use DB;
 use \Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProdutoController extends Controller
 {
@@ -35,10 +36,14 @@ class ProdutoController extends Controller
 
     public function viewCriarProduto()
     {
-        $categorias = Categoria::all();
-        return view('admin.produtos.criar-produto', [
-            'categorias' => $categorias
-        ]);
+        if (Gate::allows('isAdmin')) {
+            $categorias = Categoria::all();
+            return view('admin.produtos.criar-produto', [
+                'categorias' => $categorias
+            ]);
+        } else {
+            return redirect('/produtos')->with('Permissão negada');
+        }
     }
 
     public function criarProduto(StoreUpdateProduto $request)
@@ -54,9 +59,13 @@ class ProdutoController extends Controller
             $imagemProduto->storeAs("/public/produtos", $hashImagem);
             $produto['imagem'] = $hashImagem;
         }
-        Produto::create($produto);
+        if (Gate::allows('isAdmin', $produto)) {
+            Produto::create($produto);
+            return redirect()->route('produtos.index')->with('Produto criado com sucesso');
+        } else {
+            return redirect('/produtos')->with('Permissão negada');
+        }
 
-        return redirect()->route('produtos.index')->with('Produto criado com sucesso');
     }
 
     public function viewEditarProduto($id)
@@ -87,8 +96,12 @@ class ProdutoController extends Controller
             $produto['imagem'] = $hashImagem;
         }
         $produto['categoria_id'] = $update->categoria_id;
-        $produto->save();
-        return redirect()->route('produtos.index')->with('Produto editado com sucesso');
+        if (Gate::allows('isAdmin', $produto)) {
+            $produto->save();
+            return redirect()->route('produtos.index')->with('Produto editado com sucesso');
+        } else {
+            return redirect('/produtos')->with('Permissão negada');
+        }
     }
 
     public function deletar($id)
@@ -96,16 +109,20 @@ class ProdutoController extends Controller
         if (!$produto = Produto::find($id)) {
             return response('Produto não encontrado', 404);
         }
-        $produto->delete($id);
-        return redirect()->route('produtos.index')->with('Produto deletado com sucesso');
+        if (Gate::allows('isAdmin', $produto)) {
+            $produto->delete($id);
+            return redirect()->route('produtos.index')->with('Produto deletado com sucesso');
+        } else {
+            return redirect()->route('produto/' . $id)->with('Permissão negada');
+        }
     }
 
     public function pesquisarProduto(Request $request)
     {
-        $resultados = Produto::where("nome", "LIKE", "%{$request->busca}%")
-        ->orWhere("descricao", "LIKE", "%{$request->busca}%")
-        ->paginate(3);
-        return redirect()->   view('produtos.pesquisa-resultados', [
+        $resultados = DB::table("produtos")->where("nome", "LIKE", "%".$request->busca."%")
+            ->orWhere("descricao", "LIKE", "%{$request->busca}%")
+            ->paginate(3);
+        return view('produtos.pesquisa-resultados', [
             'resultados' => $resultados
         ]);
     }

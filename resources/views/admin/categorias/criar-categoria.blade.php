@@ -2,15 +2,15 @@
 @section('titulo', 'Criar categoria')
 
 @section('conteudo')
-    <form action="{{ route('categorias.criar') }}" method="post">
+    <form action="{{ route('categorias.criar') }}" method="post" class="w-100 my-5">
         @csrf
         <h2>Criar categoria</h2>
         <div>
             <label for="nome">Nome da categoria: </label>
-            <input type="text" name="nome" id="nome">
+            <input type="text" class="form-control mx-auto my-2 w-25" name="nome" id="nome">
         </div>
         <div>
-            <input type="submit" value="Criar categoria">
+            <input type="submit" class="form-control mx-auto my-2 w-25 btn btn-success" value="Criar categoria">
         </div>
     </form>
     @if ($errors -> any())

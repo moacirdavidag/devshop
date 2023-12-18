@@ -24,6 +24,10 @@
             @endif
         </div>
         {{ $produtos->links() }}
-        <a href="/produtos/criar">Adicionar produto</a>
+        @auth
+            @if (Auth::user()->isAdmin)
+                <a class="btn btn-primary my-3" href="/produtos/criar">Adicionar produto</a>
+            @endif
+        @endauth
     </div>
 @endsection
