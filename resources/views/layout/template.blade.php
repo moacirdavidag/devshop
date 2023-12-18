@@ -37,14 +37,36 @@
                                 </li>
                             </ul>
                         </div>
-                        <form action="{{route('produtos.pesquisar')}}" method="post" class="d-flex" role="search" id="form_busca_produto">
+                        <form action="{{ route('produtos.pesquisar') }}" method="post" class="d-flex" role="search"
+                            id="form_busca_produto">
                             @csrf
-                            <input class="form-control me-2" type="search" placeholder="Buscar produto"
-                                aria-label="Search" id="busca" name="busca">
-                                <i class="fa-solid fa-magnifying-glass"></i>
+                            <input class="form-control me-2" type="search" placeholder="Buscar produto" aria-label="Search"
+                                id="busca" name="busca">
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </form>
                     </div>
                 </nav>
+                <div class="w-100 text-start bg-body-secondary p-2">
+                    @guest
+                        <span class="mx-5"><a href="{{ route('login') }}">Fazer login</a> ou <a
+                                href="{{ route('register') }}">cadastrar-se</a></span>
+                    @endguest
+                    @auth
+                        <span class="mx-5">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Olá, <span class="fw-bold">{{ Auth::user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu float-end">
+                                <li><a class="dropdown-item" href="/profile">Meu perfil</a></li>
+                                <form action="{{route('logout')}}" method="POST">
+                                    @csrf
+                                    <input type="submit" class="dropdown-item" value="Sair">
+                                </form>
+                            </ul>
+                        </span>
+                    @endauth
+                </div>
             </header>
         @show
 
@@ -60,6 +82,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="https://kit.fontawesome.com/df87a55f2a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2"></script>
 </body>
 
 </html>

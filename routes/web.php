@@ -22,12 +22,12 @@ Route::get('/', [DevShopController::class, 'index'])->name('index');
 // Produtos
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
 Route::get('/produto/{id}', [ProdutoController::class, 'detalhesProduto'])->name('produtos.detalhes');
-Route::get('/produtos/criar', [ProdutoController::class, 'viewCriarProduto'])->name('produtos.criarProduto');
-Route::get('/produto/editar/{id}', [ProdutoController::class, 'viewEditarProduto'])->name('produtos.editarProduto');
+Route::get('/produtos/criar', [ProdutoController::class, 'viewCriarProduto'])->name('produtos.criarProduto')->middleware('auth');
+Route::get('/produto/editar/{id}', [ProdutoController::class, 'viewEditarProduto'])->name('produtos.editarProduto')->middleware('auth');
 Route::post('/buscar', [ProdutoController::class, 'pesquisarProduto'])->name('produtos.pesquisar');
-Route::post('/produtos', [ProdutoController::class, 'criarProduto'])->name('produtos.criar');
-Route::put('/produto/editar/{id}', [ProdutoController::class, 'editar'])->name('produtos.editar');
-Route::delete('/produto/{id}', [ProdutoController::class, 'deletar'])->name('produtos.deletar');
+Route::post('/produtos', [ProdutoController::class, 'criarProduto'])->name('produtos.criar')->middleware('auth');
+Route::put('/produto/editar/{id}', [ProdutoController::class, 'editar'])->name('produtos.editar')->middleware('auth');
+Route::delete('/produto/{id}', [ProdutoController::class, 'deletar'])->name('produtos.deletar')->middleware('auth');
 
 // Categorias
 
