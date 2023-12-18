@@ -11,11 +11,27 @@ use Illuminate\Support\Facades\Gate;
 
 class ProdutoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $produtos = Produto::paginate(3);
+
+        $produtosFiltro = Produto::query();
+
+        if($request->has('categoria')) {
+            $idCategoria = $request->input('categoria');
+            $produtosFiltro->where("categoria_id", "=", $idCategoria);
+        }
+
+        if($request->has('preco')) {
+            $filtroPreco = $request->input('preco', 'asc');
+            $produtosFiltro->orderBy("preco", $filtroPreco);
+        }
+
+        $categorias = Categoria::all();
+
+        $produtos = $produtosFiltro->paginate(3);
         return view('produtos.index', [
-            'produtos' => $produtos
+            'produtos' => $produtos,
+            'categorias' => $categorias
         ]);
     }
 
