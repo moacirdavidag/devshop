@@ -59,7 +59,8 @@ class ProdutoController extends Controller
             $imagemProduto->storeAs("/public/produtos", $hashImagem);
             $produto['imagem'] = $hashImagem;
         }
-        if (Gate::allows('isAdmin', $produto)) {
+        $produtoModel = new Produto($produto);
+        if (Gate::allows('isAdmin', $produtoModel)) {
             Produto::create($produto);
             return redirect()->route('produtos.index')->with('Produto criado com sucesso');
         } else {

@@ -8,7 +8,7 @@
         <input type="hidden" name="_method" value="put">
         <div class="mb-3">
             <label class="form-label" for="nome">Nome do produto:</label>
-            <input class="form-control" type="text" name="nome" id="nome" size="50" value={{$produto->nome}}>
+            <input class="form-control" type="text" name="nome" id="nome" size="50" value="{{$produto->nome}}">
         </div>
         <div class="mb-3">
             <label class="form-label" for="descricao">Descrição do produto:</label>

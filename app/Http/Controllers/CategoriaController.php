@@ -60,4 +60,28 @@ class CategoriaController extends Controller
         ]);
     }
 
+    public function viewEditarCategoria($id) {
+        if (Gate::allows('isAdmin')) {
+            $categoria = Categoria::find($id);
+            return view('admin.categorias.editar-categoria', [
+                'categoria' => $categoria
+            ]);
+        } else {
+            return redirect('/categorias')->with('Permissão negada');
+        }
+    }
+
+    public function editar(StoreUpdateCategoria $update, $id) {
+        if (Gate::allows('isAdmin')) {
+            if($categoria = Categoria::find($id)) {
+                $categoria->nome = $update->nome;
+                return redirect('/categorias')->with('Categoria atualizada com sucesso');
+            } else {
+                return redirect('/categorias')->with('Categoria não encontrada');
+            }
+         } else {
+            return redirect('/categorias')->with('Permissão negada');
+        }
+    }
+
 }
