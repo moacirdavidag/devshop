@@ -51,13 +51,18 @@ class CategoriaController extends Controller
         }
     }
 
-    public function categoriasProduto($id) {
+    public function categoriasProduto(Request $request, $id)
+    {
         $categoria = Categoria::find($id);
-        $produtos = Produto::where("categoria_id", "=", $id)->paginate(3);
+        $produtosFiltro = Produto::query();
+        if($request->has('preco')) {
+            $filtroPreco = $request->input('preco', 'asc');
+            $produtosFiltro->orderBy("preco", $filtroPreco);
+        }
+        $produtos = $produtosFiltro->where('categoria_id', '=', $id)->paginate(3);
         return view('categorias.categorias-produtos', [
             'categoria' => $categoria,
-            'produtos' => $produtos
-        ]);
+            'produtos' => $produtos]);
     }
 
 }
